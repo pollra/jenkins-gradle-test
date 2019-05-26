@@ -13,6 +13,8 @@ node('master'){
         }
         stage('Distribute'){
             sh "ls -al"
+            sh "cd .."
+            sh "ls -al"
         }
     }
     slackSend message: "배포 상태::${result} <${env.BUILD_URL} | ${env.JOB_NAME}>"
