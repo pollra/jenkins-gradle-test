@@ -3,7 +3,7 @@ node('master'){
     catchError {
         def result = 0
         stage('Source'){
-            git 'https://github.com/pollra/simple_blog.git'
+            git 'https://github.com/pollra/jenkins-gradle-test.git'
             result = result + 1
         }
         stage('Compile'){
