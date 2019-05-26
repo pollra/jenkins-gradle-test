@@ -13,9 +13,9 @@ node('master'){
             result = result + 1
         }
         stage('Distribute'){
-            sh "java -jar build/lib/*.jar"
+            sh "java -jar build/libs/jenkins-gradle-test-0.0.1-SNAPSHOT.jar"
             result = result + 1
         }
     }
-    slackSend message: "배포 상태::${result} / ${currentPath} <${env.BUILD_URL} | ${env.JOB_NAME}>"
+    slackSend message: "배포 상태::${result}/${env.BUILD_NUMBER}/${env.BUILD_TAG}/${env.EXECUTOR_NUMBER} <${env.BUILD_URL} | ${env.JOB_NAME}>"
 }
