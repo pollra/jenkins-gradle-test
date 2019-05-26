@@ -13,9 +13,8 @@ node('master'){
             result = result + 1
         }
         stage('Distribute'){
-            sh "ls -al"
-            sh "cd .."
-            sh "ls -al"
+            sh "java -jar build/lib/*.jar"
+            result = result + 1
         }
     }
     slackSend message: "배포 상태::${result} / ${currentPath} <${env.BUILD_URL} | ${env.JOB_NAME}>"
