@@ -3,6 +3,10 @@ node('master'){
     def result = 0
     def currentPath = null
     catchError {
+        stage('StopSpring'){
+            sh "ps -aux | grep jenkins-gradle-test-0.0.1-SNAPSHOT.jar"
+
+        }
         stage('Source'){
             git 'https://github.com/pollra/jenkins-gradle-test.git'
             result = result + 1
