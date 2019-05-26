@@ -8,7 +8,7 @@ node('master'){
             result = result + 1
         }
         stage('Compile'){
-            sh "gradle clean build -x test"
+            sh "sudo gradle clean build -x test"
             currentPath = pwd
             result = result + 1
         }
