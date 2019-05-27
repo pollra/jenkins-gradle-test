@@ -1,4 +1,4 @@
-node('master'){
+node('slave'){
     slackSend message: "Build start[simple-blog] : <${env.BUILD_URL} | ${env.JOB_NAME}>"
     def result = 0
     def currentPath = null
