@@ -19,9 +19,7 @@ node('master'){
             slackSend message: "status::${result}/${env.BUILD_NUMBER}/${env.BUILD_TAG}/${env.EXECUTOR_NUMBER} <${env.BUILD_URL} | ${env.JOB_NAME}>"
         }
         stage('Distribute'){
-            slackSend message: "status::${result}/${env.BUILD_NUMBER}/${env.BUILD_TAG}/${env.EXECUTOR_NUMBER} <${env.BUILD_URL} | ${env.JOB_NAME}>"
-            sh "java -jar build/libs/jenkins-gradle-test-0.0.1-SNAPSHOT.jar"
-            result = result + 1
+            echo "빌드 단계 멈춤"
         }
     }
     slackSend message: "배포 상태::${result}/${env.BUILD_NUMBER}/${env.BUILD_TAG}/${env.EXECUTOR_NUMBER} <${env.BUILD_URL} | ${env.JOB_NAME}>"
