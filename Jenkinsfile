@@ -19,10 +19,13 @@ node('slave'){
             slackSend message: "status::${result}/${env.BUILD_NUMBER}/${env.BUILD_TAG}/${env.EXECUTOR_NUMBER} <${env.BUILD_URL} | ${env.JOB_NAME}>"
         }
         stage('Distribute'){
-            echo pwd
+            agent {
+                label {
+                    label "slaves"
+                    sh "$BUILD_PATH/jenkins-gradle-test-0.0.1-SNAPSHOT.jar"
+                }
+            }
         }
     }
     slackSend message: "배포 상태::${result}/${env.BUILD_NUMBER}/${env.BUILD_TAG}/${env.EXECUTOR_NUMBER} <${env.BUILD_URL} | ${env.JOB_NAME}>"
-
-
 }
