@@ -1,4 +1,4 @@
-node('slave'){
+node {
     slackSend message: "Build start[simple-blog] : <${env.BUILD_URL} | ${env.JOB_NAME}>"
     def result = 0
     def currentPath = null
@@ -21,8 +21,7 @@ node('slave'){
         stage('Distribute'){
             steps {
                 lock('slave') {
-
-                    sh "/home/jenkins/workspace/multi-github_master/build/lib/jenkins-gradle-test-0.0.1-SNAPSHOT.jar"
+                    sh "java -jar /home/jenkins/workspace/multi-github_master/build/lib/jenkins-gradle-test-0.0.1-SNAPSHOT.jar"
                     slackSend message: "${env.BUILD_NUMBER}:${result}:배포완료::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
                 }
             }
