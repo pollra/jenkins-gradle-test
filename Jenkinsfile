@@ -7,15 +7,15 @@ node ('slave'){
         stage('test'){
             when {
                 not {
-                    sh "[-z `netstat -tnlp|grep 12345|gawk '{ print ${7} }'|grep -o '[0-9]*']`"
+                    sh "[-z `netstat -tnlp|grep 12345|gawk '{ print \$7 }'|grep -o '[0-9]*']`"
                     echo "01"
-                    echo "[-z `netstat -tnlp|grep 12345|gawk '{ print ${7} }'|grep -o '[0-9]*']`"
+                    echo "[-z `netstat -tnlp|grep 12345|gawk '{ print \$7 }'|grep -o '[0-9]*']`"
                 }
                 echo "02"
-                echo "[-z `netstat -tnlp|grep 12345|gawk '{ print ${7} }'|grep -o '[0-9]*']`"
+                echo "[-z `netstat -tnlp|grep 12345|gawk '{ print \$7 }'|grep -o '[0-9]*']`"
             }
             echo "03"
-            echo "[-z `netstat -tnlp|grep 12345|gawk '{ print ${7} }'|grep -o '[0-9]*']`"
+            echo "[-z `netstat -tnlp|grep 12345|gawk '{ print \$7 }'|grep -o '[0-9]*']`"
         }
         stage('Source'){
             git 'https://github.com/pollra/jenkins-gradle-test.git'
