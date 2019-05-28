@@ -19,8 +19,8 @@ node('slave'){
             slackSend message: "${env.BUILD_NUMBER}:${result}:빌드완료::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
         }
         stage('Distribute'){
-            agent {
-                label {
+            steps {
+                lock('slave') {
                     label "slaves"
                     sh "/home/jenkins/workspace/multi-github_master/build/lib/jenkins-gradle-test-0.0.1-SNAPSHOT.jar"
                     slackSend message: "${env.BUILD_NUMBER}:${result}:배포완료::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
@@ -28,5 +28,5 @@ node('slave'){
             }
         }
     }
-    slackSend message: "배포 결과::${result}/${env.BUILD_NUMBER}/${env.BUILD_TAG}/${env.EXECUTOR_NUMBER} <${env.BUILD_URL} | ${env.JOB_NAME}>"
+    slackSend message: "${env.BUILD_NUMBER}:${result}:결과::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
 }
