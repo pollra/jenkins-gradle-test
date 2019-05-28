@@ -8,21 +8,6 @@ node ('slave'){
             sh label: 'slave', script: 'sudo kill -9 `netstat -tnlp|grep 12345|gawk \'{ print $7 }\'|grep -o \'[0-9]*\'`'
             slackSend message: "${env.BUILD_NUMBER}:${result}:JAR_KILL::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
         }
-        stage('test'){
-            when {
-                not {
-                    echo '00'
-
-                    sh label: 'slave', script: 'sudo kill -9 `netstat -tnlp|grep 12345|gawk \'{ print $7 }\'|grep -o \'[0-9]*\'`'
-                    echo '01'
-                    echo '[-z `netstat -tnlp|grep 12345|gawk \'{ print $7 }\'|grep -o \'[0-9]*\'`]'
-                }
-                echo '02'
-                echo '[-z `netstat -tnlp|grep 12345|gawk \'{ print $7 }\'|grep -o \'[0-9]*\'`]'
-            }
-            echo '03'
-            echo '[-z `netstat -tnlp|grep 12345|gawk \'{ print $7 }\'|grep -o \'[0-9]*\'`]'
-        }
         stage('Source'){
             git 'https://github.com/pollra/jenkins-gradle-test.git'
             result = result + 1
