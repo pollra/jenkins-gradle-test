@@ -22,7 +22,8 @@ node('slave'){
             agent {
                 label {
                     label "slaves"
-                    sh "$BUILD_PATH/jenkins-gradle-test-0.0.1-SNAPSHOT.jar"
+                    sh "$pwd /build/lib/jenkins-gradle-test-0.0.1-SNAPSHOT.jar"
+                    slackSend message: "${env.BUILD_NUMBER}:${result}:배포완료::/${env.BUILD_TAG}/${env.EXECUTOR_NUMBER} <${env.BUILD_URL} | ${env.JOB_NAME}>"
                 }
             }
         }
