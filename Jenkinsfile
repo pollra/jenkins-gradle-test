@@ -17,6 +17,7 @@ node ('slaves'){
         }
         stage('Compile'){
             sh "cd /home/jenkins/workspace/multi-github_master"
+            sh "git branch --set-upstream-to=origin/master master"
             sh "sudo gradle clean build -x test"
             currentPath = pwd
             result = result + 1
