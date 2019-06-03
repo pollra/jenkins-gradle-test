@@ -7,17 +7,20 @@ node ('slaves'){
         stage('StopJar'){
             sh '~/stop.sh'
             slackSend message: "${env.BUILD_NUMBER}:${result}:JAR_KILL::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
+            sleep 5
         }
         stage('Source'){
             git 'https://github.com/pollra/jenkins-gradle-test.git'
             result = result + 1
             slackSend message: "${env.BUILD_NUMBER}:${result}:깃 커밋::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
+            sleep 5
         }
         stage('Compile'){
             sh "sudo gradle clean build -x test"
             currentPath = pwd
             result = result + 1
             slackSend message: "${env.BUILD_NUMBER}:${result}:빌드완료::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
+            sleep 5
         }
         stage('Distribute'){
             sleep 5
