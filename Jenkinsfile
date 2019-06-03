@@ -11,7 +11,9 @@ node ('slaves'){
         }
         stage('Source'){
             sh 'git branch --set-upstream-to=origin/master master'
-            git 'https://github.com/pollra/jenkins-gradle-test.git'
+            sh 'cd /home/jenkins/workspace/multi-github_master'
+            sh 'git pull'
+
             result = result + 1
             slackSend message: "${env.BUILD_NUMBER}:${result}:깃 커밋::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
             sleep 5
