@@ -10,17 +10,17 @@ node ('slaves'){
             sleep 5
         }
         stage('Source'){
-            sh 'git branch --set-upstream-to=origin/master master'
-            sh 'cd /home/jenkins/workspace/multi-github_master'
-            sh 'git pull'
+            sh label:'slaves' ,script:'git branch --set-upstream-to=origin/master master'
+            sh label:'slaves' ,script:'cd /home/jenkins/workspace/multi-github_master'
+            sh label:'slaves' ,script:'git pull'
 
             result = result + 1
             slackSend message: "${env.BUILD_NUMBER}:${result}:깃 커밋::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
             sleep 5
         }
         stage('Compile'){
-            sh "cd /home/jenkins/workspace/multi-github_master"
-            sh "sudo gradle clean build -x test"
+            sh label:'slaves' ,script:"cd /home/jenkins/workspace/multi-github_master"
+            sh label:'slaves' ,script:"sudo gradle clean build -x test"
             currentPath = pwd
             result = result + 1
             slackSend message: "${env.BUILD_NUMBER}:${result}:빌드완료::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
@@ -28,7 +28,7 @@ node ('slaves'){
         }
         stage('Distribute'){
             sleep 5
-            sh label:'slaves' ,script:"sudo java -jar /home/jenkins/workspace/multi-github_master/build/libs/jenkins-gradle-test-0.0.1-SNAPSHOT.jar &"
+            sh label:'slaves' ,script:"sudo java -jar /home/jenkins/workspace/multi-github_master/build/libs/jenkins-gradle-test-0.0.1-SNAPSHOT.jar"
 
             result = result + 1
             slackSend message: "${env.BUILD_NUMBER}:${result}:배포완료::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
