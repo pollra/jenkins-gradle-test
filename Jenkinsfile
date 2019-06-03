@@ -25,7 +25,6 @@ node ('slaves'){
         stage('Distribute'){
             sleep 5
             sh '~/server_status/server_start.sh'
-
             result = result + 1
             slackSend message: "${env.BUILD_NUMBER}:${result}:배포완료::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
         }
