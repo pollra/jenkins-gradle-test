@@ -5,22 +5,18 @@ node ('slaves'){
     def testPath = null
     catchError {
         stage('StopJar'){
-            sh '~/stop.sh'
+            sh '~/server_status/stop.sh'
             slackSend message: "${env.BUILD_NUMBER}:${result}:JAR_KILL::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
             sleep 5
         }
         stage('Source'){
-            sh label:'slaves' ,script:'git branch --set-upstream-to=origin/master master'
-            sh label:'slaves' ,script:'cd /home/jenkins/workspace/multi-github_master'
-            sh label:'slaves' ,script:'git pull'
-
+            sh '~/server_status/git_pull_test01.sh'
             result = result + 1
             slackSend message: "${env.BUILD_NUMBER}:${result}:깃 커밋::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
             sleep 5
         }
         stage('Compile'){
-            sh label:'slaves' ,script:"cd /home/jenkins/workspace/multi-github_master"
-            sh label:'slaves' ,script:"sudo gradle clean build -x test"
+            sh '~/server_status/gradle_build_test01.sh'
             currentPath = pwd
             result = result + 1
             slackSend message: "${env.BUILD_NUMBER}:${result}:빌드완료::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
