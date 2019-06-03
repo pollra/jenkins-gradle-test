@@ -5,7 +5,7 @@ node ('slaves'){
     def testPath = null
     catchError {
         stage('StopSpring'){
-            sh 'stop.sh'
+            sh '~/stop.sh'
             slackSend message: "${env.BUILD_NUMBER}:${result}:JAR_KILL::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
         }
         stage('Source'){
