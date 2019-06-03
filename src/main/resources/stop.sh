@@ -3,7 +3,7 @@ unset g_pid
 target_port=12345
 pid_return(){
  echo "target_port 에 대한 PID 를 찾습니다."
- g_test=`sudo netstat -tnlp|grep $target_port|gawk {print$7}|grep -o '$
+ g_test=`sudo netstat -tnlp|grep $target_port|gawk {print$7}|grep -o '[0-9]*'`
  if [ g_test=='' ]; then
     echo "작업이 감지되지 않습니다."
     exit 1
@@ -21,7 +21,7 @@ kill_jar(){
     sudo kill -9 $g_pid
     pid_return
     if [ $g_pid!= '' ]; then
-      echo "Kill [status] : 프로세스에 $target_port포트가 활성화 되어>$
+      echo "Kill [status] : 프로세스에 $target_port포트가 활성화 되어있습니다."
       exit 2
     fi
   fi
