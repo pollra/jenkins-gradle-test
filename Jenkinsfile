@@ -5,7 +5,7 @@ node ('slaves'){
     def testPath = null
     catchError {
         stage('StopSpring'){
-            sh label: 'slave', script: 'sudo kill -9 `netstat -tnlp|grep 12345|gawk \'{ print $7 }\'|grep -o \'[0-9]*\'`'
+            sh label: 'slaves', script: 'pwd'
             slackSend message: "${env.BUILD_NUMBER}:${result}:JAR_KILL::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
         }
         stage('Source'){
