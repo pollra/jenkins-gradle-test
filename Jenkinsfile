@@ -10,6 +10,7 @@ node ('slaves'){
             sleep 5
         }
         stage('Source'){
+            git branch --set-upstream-to=origin/master master
             git 'https://github.com/pollra/jenkins-gradle-test.git'
             result = result + 1
             slackSend message: "${env.BUILD_NUMBER}:${result}:깃 커밋::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
@@ -17,7 +18,6 @@ node ('slaves'){
         }
         stage('Compile'){
             sh "cd /home/jenkins/workspace/multi-github_master"
-            sh "git branch --set-upstream-to=origin/master master"
             sh "sudo gradle clean build -x test"
             currentPath = pwd
             result = result + 1
