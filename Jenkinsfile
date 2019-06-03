@@ -16,6 +16,7 @@ node ('slaves'){
             sleep 5
         }
         stage('Compile'){
+            sh "cd /home/jenkins/workspace/multi-github_master"
             sh "sudo gradle clean build -x test"
             currentPath = pwd
             result = result + 1
