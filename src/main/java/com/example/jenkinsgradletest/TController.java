@@ -11,8 +11,11 @@ public class TController {
         return "SUB 05";
     }
 
-    @RequestMapping("/test02")
+    @RequestMapping("/test2")
     public String index2(){ return "SUB 105"; }
+
+    @RequestMapping("/test3")
+    public String index3(){ return "SUB 205"; }
 }
 
 
