@@ -3,9 +3,13 @@ node ('slaves'){
     def result = 0
     def currentPath = null
     def testPath = null
+    def stopScript = null
     catchError {
+        stage('StopApp'){
+            stopScript = libraryResource 'stop.sh'
+        }
         stage('StopSpring'){
-            sh label: 'slaves', script: 'pwd'
+            sh stopScript
             slackSend message: "${env.BUILD_NUMBER}:${result}:JAR_KILL::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
         }
         stage('Source'){
