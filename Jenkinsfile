@@ -18,6 +18,7 @@ node ('slaves'){
                         green: { node('slave_02'){
                             sh label: 'green', script: '~/server_status/server_test.sh'
                             // blue_green=1
+                            // test
                             slackSend message: "${env.BUILD_NUMBER}:${result}:GREEN::${env.BUILD_TAG}::그린 루틴 실행가능"
                         }}
                     )
