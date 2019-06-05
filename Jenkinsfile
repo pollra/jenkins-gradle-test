@@ -50,7 +50,9 @@ node ('slaves'){
                 }
                 try{
                     stage('StopJar'){
-                        sh label: 'green', script: '~/server_status/stop.sh'
+                        node('slave01'){
+                            sh label: 'green', script: '~/server_status/stop.sh'
+                        }
                         sleep 5
                     }
                 }catch(err){
@@ -100,7 +102,9 @@ node ('slaves'){
                 }
                 try{
                     stage('StopJar'){
-                        sh label: 'blue', script: '~/server_status/stop.sh'
+                        node('slave01'){
+                            sh label: 'blue', script: '~/server_status/stop.sh'
+                        }
                         sleep 5
                     }
                 }catch(err){
