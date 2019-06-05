@@ -23,71 +23,69 @@ node ('slaves'){
         }
 
         if(blue_green == 0 || blue_green >= 2){
-            stages('blue'){
-                try{
-                    stage('Source'){
-                        if (blue_green == 0 || blue_green >= 2){
-                            sh label: 'blue', script: '~/server_status/git_pull_test01.sh'
-                        }
-                        if ( blue_green>1 ){
-                            sh label: 'green', script: '~/server_status/git_pull_test01.sh'
-                        }
-                        result = result + 1
-                        sleep 5
+            try{
+                stage('Source'){
+                    if (blue_green == 0 || blue_green >= 2){
+                        sh label: 'blue', script: '~/server_status/git_pull_test01.sh'
                     }
-                }catch(err){
-                    echo "Caught: ${err}"
-                    currentBuild.result = 'FAILURE'
-                    slackSend message: "Error: 깃 커밋 ${env.BUILD_NUMBER}:${result}::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
-                }
-                try{
-                    stage('Compile'){
-                        if (blue_green == 0 || blue_green >= 2){
-                            sh label: 'blue', script: '~/server_status/gradle_build_test01.sh'
-                        }
-                        if ( blue_green>1 ){
-                            sh label: 'green', script: '~/server_status/gradle_build_test01.sh'
-                        }
-                        currentPath = pwd
-                        result = result + 1
-                        sleep 5
+                    if ( blue_green>1 ){
+                        sh label: 'green', script: '~/server_status/git_pull_test01.sh'
                     }
-                }catch(err){
-                    echo "Caught: ${err}"
-                    currentBuild.result = 'FAILURE'
-                    slackSend message: "Error: 빌드 ${env.BUILD_NUMBER}:${result}::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
+                    result = result + 1
+                    sleep 5
                 }
-                try{
-                    stage('Distribute'){
-                        if (blue_green == 0 || blue_green >= 2){
-                            sh label: 'blue', script: '~/server_status/server_start.sh'
-                        }
-                        if ( blue_green>1 ){
-                            sh label: 'green', script: '~/server_status/server_start.sh'
-                        }
-                        sleep 5
-                        result = result + 1
+            }catch(err){
+                echo "Caught: ${err}"
+                currentBuild.result = 'FAILURE'
+                slackSend message: "Error: 깃 커밋 ${env.BUILD_NUMBER}:${result}::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
+            }
+            try{
+                stage('Compile'){
+                    if (blue_green == 0 || blue_green >= 2){
+                        sh label: 'blue', script: '~/server_status/gradle_build_test01.sh'
                     }
-                }catch(err){
-                    echo "Caught: ${err}"
-                    currentBuild.result = 'FAILURE'
-                    slackSend message: "Error: 배포 ${env.BUILD_NUMBER}:${result}:배포완료::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
-                }
-                try{
-                    stage('StopJar'){
-                        if (blue_green == 0 || blue_green >= 2){
-                            sh label: 'green', script: '~/server_status/stop.sh'
-                        }
-                        if ( blue_green>1 ){
-                            sh label: 'blue', script: '~/server_status/stop.sh'
-                        }
-                        sleep 5
+                    if ( blue_green>1 ){
+                        sh label: 'green', script: '~/server_status/gradle_build_test01.sh'
                     }
-                }catch(err){
-                    echo "Caught: ${err}"
-                    currentBuild.result = 'FAILURE'
-                    slackSend message: "Error: JAR_KILL ${env.BUILD_NUMBER}:${result}::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
+                    currentPath = pwd
+                    result = result + 1
+                    sleep 5
                 }
+            }catch(err){
+                echo "Caught: ${err}"
+                currentBuild.result = 'FAILURE'
+                slackSend message: "Error: 빌드 ${env.BUILD_NUMBER}:${result}::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
+            }
+            try{
+                stage('Distribute'){
+                    if (blue_green == 0 || blue_green >= 2){
+                        sh label: 'blue', script: '~/server_status/server_start.sh'
+                    }
+                    if ( blue_green>1 ){
+                        sh label: 'green', script: '~/server_status/server_start.sh'
+                    }
+                    sleep 5
+                    result = result + 1
+                }
+            }catch(err){
+                echo "Caught: ${err}"
+                currentBuild.result = 'FAILURE'
+                slackSend message: "Error: 배포 ${env.BUILD_NUMBER}:${result}:배포완료::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
+            }
+            try{
+                stage('StopJar'){
+                    if (blue_green == 0 || blue_green >= 2){
+                        sh label: 'green', script: '~/server_status/stop.sh'
+                    }
+                    if ( blue_green>1 ){
+                        sh label: 'blue', script: '~/server_status/stop.sh'
+                    }
+                    sleep 5
+                }
+            }catch(err){
+                echo "Caught: ${err}"
+                currentBuild.result = 'FAILURE'
+                slackSend message: "Error: JAR_KILL ${env.BUILD_NUMBER}:${result}::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
             }
         }
     }
