@@ -26,10 +26,10 @@ node ('slaves'){
             try{
                 stage('Source'){
                     if (blue_green == 0 || blue_green >= 2){
-                        sh label: 'blue', script: '~/server_status/git_pull_test01.sh'
+                        sh label: 'blue', script: '~/server_status/server_git_pull.sh'
                     }
                     if ( blue_green>1 ){
-                        sh label: 'green', script: '~/server_status/git_pull_test01.sh'
+                        sh label: 'green', script: '~/server_status/server_git_pull.sh'
                     }
                     result = result + 1
                     sleep 5
@@ -42,10 +42,10 @@ node ('slaves'){
             try{
                 stage('Compile'){
                     if (blue_green == 0 || blue_green >= 2){
-                        sh label: 'blue', script: '~/server_status/gradle_build_test01.sh'
+                        sh label: 'blue', script: '~/server_status/server_gradle_build.sh'
                     }
                     if ( blue_green>1 ){
-                        sh label: 'green', script: '~/server_status/gradle_build_test01.sh'
+                        sh label: 'green', script: '~/server_status/server_gradle_build.sh'
                     }
                     currentPath = pwd
                     result = result + 1
