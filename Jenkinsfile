@@ -6,7 +6,6 @@ node ('slaves'){
     def testPath = null
     catchError {
     // 작업가능 slave 확인
-        def blue_green = 0
         stage('parallel_check'){
             parallel(
                 blue: { node('slave_01'){
