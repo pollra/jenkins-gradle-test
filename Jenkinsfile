@@ -5,7 +5,7 @@ node ('slaves'){
     def currentPath = null
     def testPath = null
 
-    // 작업가능 slave 확인
+    // 작업가능 slave 확인 2
     stage('parallel_check'){
         parallel(
             blue: { node('slave_01'){
