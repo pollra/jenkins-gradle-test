@@ -18,7 +18,7 @@ node ('slaves'){
                 blue_green=blue_green+1
                 slackSend message: "${env.BUILD_NUMBER}:${result}:GREEN::${env.BUILD_TAG}::그린 루틴 실행가능"
             }},
-            failFast:false
+            failFast:true
         )
         echo "${blue_green}"
     }
