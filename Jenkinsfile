@@ -109,7 +109,7 @@ node ('slaves'){
                     slackSend message: "Error: JAR_KILL ${env.BUILD_NUMBER}:${result}::${env.BUILD_TAG}:: <${env.BUILD_URL} | ${env.JOB_NAME}>"
                 }
             }},
-            failFast:true
+            failFast:false
         )
         echo "${blue_green}"
     }
