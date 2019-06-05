@@ -8,18 +8,17 @@ node ('slaves'){
     // 작업가능 slave 확인
         stage('parallel_check'){
             parallel(
-                    blue: { node('slave_01'){
-                        sh label: 'blue', script: '~/server_status/server_test.sh'
-                        blue_green=blue_green+1
-                        slackSend message: "${env.BUILD_NUMBER}:${result}:BLUE::${env.BUILD_TAG}::블루 루틴 실행가능"
-                    }},
-                    green: { node('slave_02'){
-                        sh label: 'green', script: '~/server_status/server_test.sh'
-                        blue_green=blue_green+1
-                        slackSend message: "${env.BUILD_NUMBER}:${result}:GREEN::${env.BUILD_TAG}::그린 루틴 실행가능"
-                    },
-                    failFast:false
-                }
+                blue: { node('slave_01'){
+                    sh label: 'blue', script: '~/server_status/server_test.sh'
+                    blue_green=blue_green+1
+                    slackSend message: "${env.BUILD_NUMBER}:${result}:BLUE::${env.BUILD_TAG}::블루 루틴 실행가능"
+                }},
+                green: { node('slave_02'){
+                    sh label: 'green', script: '~/server_status/server_test.sh'
+                    blue_green=blue_green+1
+                    slackSend message: "${env.BUILD_NUMBER}:${result}:GREEN::${env.BUILD_TAG}::그린 루틴 실행가능"
+                }},
+                failFast:false
             )
             echo "${blue_green}"
         }
