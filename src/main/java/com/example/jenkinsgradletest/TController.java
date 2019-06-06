@@ -8,7 +8,7 @@ public class TController {
 
     @RequestMapping("/test")
     public String index(){
-        return "SUB 06";
+        return "test ㅇㅅㅇ!";
     }
 
 }
