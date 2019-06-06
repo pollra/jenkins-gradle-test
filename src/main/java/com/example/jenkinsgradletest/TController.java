@@ -8,38 +8,9 @@ public class TController {
 
     @RequestMapping("/test")
     public String index(){
-        return "SUB 05";
+        return "SUB 06";
     }
 
-    @RequestMapping("/test2")
-    public String index2(){ return "SUB 105"; }
-
-    @RequestMapping("/test3")
-    public String index3(){ return "SUB 206"; }
-
-    @RequestMapping("/test4")
-    public String index4(){ return "SUB 306"; }
-
-    @RequestMapping("/test5")
-    public String index5(){ return "SUB 406"; }
-
-    @RequestMapping("/test6")
-    public String index6(){ return "SUB 506"; }
-
-    @RequestMapping("/test7")
-    public String index7(){ return "SUB 606"; }
-
-    @RequestMapping("/test8")
-    public String index8(){ return "SUB 706"; }
-
-    @RequestMapping("/test9")
-    public String index9(){ return "SUB 806"; }
-
-    @RequestMapping("/test10")
-    public String index10(){ return "SUB 906"; }
-
-    @RequestMapping("/test11")
-    public String index11(){ return "SUB 1006"; }
 }
 
 
