@@ -48,7 +48,7 @@ node ('slaves'){
                 }
                 try{
                     stage('StopJar'){
-                        sleep 10
+                        sleep 30
                         node('green'){
                             sh label: 'green', script: '~/server_status/server_stop.sh'
                         }
@@ -100,7 +100,7 @@ node ('slaves'){
                 }
                 try{
                     stage('StopJar'){
-                        sleep 10
+                        sleep 30
                         node('blue'){
                             sh label: 'blue', script: '~/server_status/server_stop.sh'
                         }

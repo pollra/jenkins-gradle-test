@@ -6,9 +6,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TController {
 
-    @RequestMapping("/test")
+    @RequestMapping("/")
     public String index(){
-        return "test ㅇㅅㅇ!";
+        return "ㅎㅇ?";
+    }
+
+    @RequestMapping("/test")
+    public String testPage01(){
+        return "ㅇㅅㅇ";
     }
 
 }
