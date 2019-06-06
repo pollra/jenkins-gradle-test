@@ -34,6 +34,9 @@ public class TController {
 
     @RequestMapping("/test9")
     public String index9(){ return "SUB 806"; }
+
+    @RequestMapping("/test10")
+    public String index10(){ return "SUB 906"; }
 }
 
 
